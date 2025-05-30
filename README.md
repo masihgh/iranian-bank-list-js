@@ -145,3 +145,72 @@ import { validateIbanChecksum } from 'iranian-bank-list-js';
 
 console.log(validateIbanChecksum('IR820540102680020817909002')); // true or false
 ```
+
+---
+
+### 7. `findByName(name)`
+
+Finds a bank by its exact bank name (case-insensitive).
+
+**Parameters:**
+
+- `name` (`string`): The bank name to search for.
+
+**Returns:**
+
+- `Object | undefined` — Bank object if found, otherwise `undefined`.
+
+**Example:**
+
+```js
+import { findByName } from './index.js';
+
+const bank = findByName('melli');
+console.log(bank);
+```
+
+---
+
+### 8. findByCardNumber(cardNumber)
+
+Finds a bank by full card number using the bank's card regex.
+
+**Parameters:**
+
+- `cardNumber` (`string|number`): The full card number.
+
+**Returns:**
+
+- `Object | undefined` — Bank object if found, otherwise `undefined`.
+
+**Example:**
+
+```js
+import { findByCardNumber } from './index.js';
+
+const bank = findByCardNumber('6037991234567890');
+console.log(bank);
+```
+
+---
+
+### 3. findByIBan(iban)
+
+Finds a bank by full IBAN number using the bank's IBAN regex.
+
+**Parameters:**
+
+- `iban` (`string`): The full IBAN string.
+
+**Returns:**
+
+- `Object | undefined` — Bank object if found, otherwise `undefined`.
+
+**Example:**
+
+```js
+import { findByIBan } from './index.js';
+
+const bank = findByIBan('IR820540102680020817909002');
+console.log(bank);
+```
