@@ -3,7 +3,7 @@ name: Deploy Examples to GitHub Pages
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main
 
 permissions:
   contents: read
@@ -18,10 +18,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build your project (if needed)
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Copy build output to examples folder
         run: |
-          npm ci
-          npm run build
+          cp -r dist/* examples/assets/
 
       - name: Prepare Pages output
         run: |
