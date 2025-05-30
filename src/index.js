@@ -118,3 +118,36 @@ export function validateIbanChecksum(iban) {
 
   return mod === 1;
 }
+
+/**
+ * Find a bank by its exact bank_name (case-insensitive)
+ * @param {string} name - The bank_name to search for
+ * @returns {Object|undefined} Bank object if found, else undefined
+ */
+export const findByName = (name) => {
+  return mapBanksWithLogos().find(
+    bank => bank.bank_name.toLowerCase() === String(name).toLowerCase()
+  );
+};
+
+/**
+ * Find a bank by full card number using card_regex
+ * @param {string|number} cardNumber - Full card number
+ * @returns {Object|undefined} Bank object if found, else undefined
+ */
+export const findByCardNumber = (cardNumber) => {
+  return mapBanksWithLogos().find(
+    bank => new RegExp(bank.card_regex).test(String(cardNumber))
+  );
+};
+
+/**
+ * Find a bank by full IBAN number using iban_regex
+ * @param {string} iban - Full IBAN string
+ * @returns {Object|undefined} Bank object if found, else undefined
+ */
+export const findByIBan = (iban) => {
+  return mapBanksWithLogos().find(
+    bank => new RegExp(bank.iban_regex).test(String(iban))
+  );
+};
