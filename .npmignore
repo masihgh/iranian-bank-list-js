@@ -1,0 +1,31 @@
+# Ignore development-related files and directories
+node_modules/
+.npm/
+.yarn/
+tmp/
+.env
+.DS_Store
+coverage/
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.log
+Thumbs.db
+
+# Ignore source files if only the dist folder is published
+src/
+
+# Ignore test files
+test/
+
+# Ignore examples (unless they are part of the published package API)
+examples/
+
+# Ignore specific development files
+babel.config.js
+webpack.config.js
+rollup.config.js
+jest.config.js
+tsconfig.json
+jsconfig.json
