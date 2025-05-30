@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
-  root: path.resolve(__dirname, 'dev'),  // <-- Set root to dev folder
+  // REMOVE or comment out this line:
+  // root: path.resolve(__dirname, 'dev'),
 
   build: {
     lib: {
@@ -14,8 +15,5 @@ export default defineConfig({
     rollupOptions: {
       external: [],
     },
-  },
-  server: {
-    open: true,  // Optional: open browser automatically
   },
 });
