@@ -1,9 +1,8 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
-  root: '.', // default root
+  root: path.resolve(__dirname, 'dev'),  // <-- Set root to dev folder
 
   build: {
     lib: {
@@ -17,6 +16,6 @@ export default defineConfig({
     },
   },
   server: {
-    open: false,
-  }
+    open: true,  // Optional: open browser automatically
+  },
 });
