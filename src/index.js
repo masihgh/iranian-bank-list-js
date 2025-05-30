@@ -82,3 +82,39 @@ export function validateIranianCard(cardNumber) {
   }
   return sum % 10 === 0;
 }
+
+/**
+ * Validate IBAN using international standard (mod-97 checksum)
+ * @param {string} iban - The IBAN string to validate
+ * @returns {boolean} True if valid IBAN, false otherwise
+ */
+export function validateIbanChecksum(iban) {
+  if (!iban || typeof iban !== 'string') return false;
+
+  // Remove spaces and to uppercase
+  const trimmed = iban.replace(/\s+/g, '').toUpperCase();
+
+  // IBAN basic format check (length between 15 and 34)
+  if (trimmed.length < 15 || trimmed.length > 34) return false;
+
+  // Move first 4 chars to the end
+  const rearranged = trimmed.slice(4) + trimmed.slice(0, 4);
+
+  // Replace letters with numbers (A=10, B=11, ..., Z=35)
+  const converted = rearranged.split('').map(ch => {
+    const code = ch.charCodeAt(0);
+    if (code >= 65 && code <= 90) return code - 55;  // A=10, ..., Z=35
+    else return ch;
+  }).join('');
+
+  // Perform mod-97 operation in chunks (to handle large numbers)
+  let remainder = converted;
+  let block;
+  while (remainder.length > 2) {
+    block = remainder.slice(0, 9);
+    remainder = (parseInt(block, 10) % 97).toString() + remainder.slice(block.length);
+  }
+  const mod = parseInt(remainder, 10) % 97;
+
+  return mod === 1;
+}
