@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Iranian Bank Utils - UMD Example</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Vazirmatn", sans-serif;
+        max-width: 700px;
+        margin: 2rem auto;
+        padding: 1rem;
+        background: #f9f9f9;
+        border-radius: 8px;
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 1rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        margin-top: 0.25rem;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        margin-top: 1rem;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        cursor: pointer;
+        background: #0078d4;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        transition: background 0.3s ease;
+      }
+      button:hover {
+        background: #005a9e;
+      }
+      .result {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 12px;
+        min-height: 150px;
+      }
+      .icon-holder svg {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Iranian Bank Utils UMD Example</h1>
+
+    <label for="cardNumber">Bank Card Number</label>
+    <input type="text" id="cardNumber" placeholder="e.g. 6273811234567890" />
+
+    <label for="iban">IBAN Number</label>
+    <input
+      type="text"
+      id="iban"
+      placeholder="e.g. IR820540102680020817909002"
+    />
+
+    <label for="bankName">Bank Name</label>
+    <input type="text" id="bankName" placeholder="e.g. mellat" />
+
+    <button id="runBtn">Run All Methods</button>
+
+    <div class="result" id="result"></div>
+
+    <!-- Load your built UMD bundle -->
+    <script src="../dist/index.umd.js"></script>
+    <script>
+      const { findByCardNumber, findByIBan, findByName } = BankUtils;
+
+      const cardInput = document.getElementById("cardNumber");
+      const ibanInput = document.getElementById("iban");
+      const nameInput = document.getElementById("bankName");
+      const runBtn = document.getElementById("runBtn");
+      const resultDiv = document.getElementById("result");
+
+      runBtn.addEventListener("click", () => {
+        const card = cardInput.value.trim();
+        const iban = ibanInput.value.trim();
+        const name = nameInput.value.trim().toLowerCase();
+
+        let bank = undefined;
+
+        if (card) {
+          bank = findByCardNumber(card);
+        } else if (iban) {
+          bank = findByIBan(iban);
+        } else if (name) {
+          bank = findByName(name);
+        }
+
+        if (!bank) {
+          resultDiv.innerHTML =
+            `<p style="color: red;">No matching bank found.</p>`;
+          return;
+        }
+
+        const cardNoDisplay = card || (iban ? "N/A" : "N/A");
+        const bankTitle = bank.bank_title || bank.bank_name || "Unknown Bank";
+        const logoSvg = bank.bank_logo || "";
+        const color = bank.color || "#444";
+        const lighter = bank.lighter_color || "#eee";
+        const darker = bank.darker_color || "#222";
+
+        resultDiv.innerHTML = `
+          <div style="
+            max-width: 400px;
+            margin: 1rem auto;
+            border-radius: 16px;
+            padding: 2rem;
+            background: linear-gradient(145deg, ${lighter}, ${darker});
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            border: 4px solid ${color};
+          ">
+            <div style="margin-bottom: 1rem;">
+              <div class="icon-holder" style="width: 80px; height: 80px; margin: 0 auto;">
+                ${logoSvg}
+              </div>
+            </div>
+            <h2 style="margin: 0.5rem 0; font-weight: 700;">${bankTitle}</h2>
+            <div style="
+              font-size: 1.4rem;
+              font-weight: 700;
+              background: rgba(255 255 255 / 0.15);
+              padding: 0.75rem 1.25rem;
+              border-radius: 12px;
+              letter-spacing: 2px;
+              margin-top: 1rem;
+              user-select: all;
+            ">${cardNoDisplay}</div>
+          </div>
+        `;
+      });
+    </script>
+  </body>
+</html>
