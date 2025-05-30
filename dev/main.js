@@ -1,14 +1,4 @@
-import {
-  getAllBanks,
-  getBankByCardNumber,
-  getBankByIban,
-  validateIban,
-  validateIranianCard,
-  validateIbanChecksum,
-  findByName,
-  findByCardNumber,
-  findByIBan,
-} from '../src/index.js';
+import { findByCardNumber, findByIBan, findByName } from '../src/index.js';
 
 const cardInput = document.getElementById('cardNumber');
 const ibanInput = document.getElementById('iban');
@@ -19,66 +9,60 @@ const resultDiv = document.getElementById('result');
 runBtn.addEventListener('click', () => {
   const card = cardInput.value.trim();
   const iban = ibanInput.value.trim();
-  const name = nameInput.value.trim();
+  const name = nameInput.value.trim().toLowerCase();
 
-  // Run all methods and collect output
-  const allBanks = getAllBanks();
+  let bank = undefined;
 
-  const bankByCard = card ? getBankByCardNumber(card) : null;
-  const bankByIban = iban ? getBankByIban(iban) : null;
-  const isIbanValid = iban ? validateIban(iban) : null;
-  const isCardValid = card ? validateIranianCard(card) : null;
-  const isIbanChecksumValid = iban ? validateIbanChecksum(iban) : null;
-  const bankByName = name ? findByName(name) : null;
-  const bankByCardAlias = card ? findByCardNumber(card) : null;
-  const bankByIbanAlias = iban ? findByIBan(iban) : null;
-
-  let output = '';
-
-  output += `🗂️ Total Banks Loaded: ${allBanks.length}\n\n`;
-
-  output += `🏦 getBankByCardNumber('${card}'):\n`;
-  output += bankByCard
-    ? `  - Bank Name: ${bankByCard.bank_title || bankByCard.bank_name}\n`
-    : '  - Not found\n';
-  output += bankByCard && bankByCard.bank_logo ? `  - Logo SVG available\n` : '';
-
-  output += `\n🏦 getBankByIban('${iban}'):\n`;
-  output += bankByIban
-    ? `  - Bank Name: ${bankByIban.bank_title || bankByIban.bank_name}\n`
-    : '  - Not found\n';
-
-  output += `\n✅ validateIban('${iban}'): ${isIbanValid}\n`;
-  output += `✅ validateIranianCard('${card}'): ${isCardValid}\n`;
-  output += `✅ validateIbanChecksum('${iban}'): ${isIbanChecksumValid}\n`;
-
-  output += `\n🔎 findByName('${name}'):\n`;
-  output += bankByName
-    ? `  - Bank Name: ${bankByName.bank_title || bankByName.bank_name}\n`
-    : '  - Not found\n';
-
-  output += `\n🔎 findByCardNumber('${card}'):\n`;
-  output += bankByCardAlias
-    ? `  - Bank Name: ${bankByCardAlias.bank_title || bankByCardAlias.bank_name}\n`
-    : '  - Not found\n';
-
-  output += `\n🔎 findByIBan('${iban}'):\n`;
-  output += bankByIbanAlias
-    ? `  - Bank Name: ${bankByIbanAlias.bank_title || bankByIbanAlias.bank_name}\n`
-    : '  - Not found\n';
-
-  resultDiv.textContent = output;
-
-  // If bank by card has logo SVG, show it below
-  if (bankByCard && bankByCard.bank_logo) {
-    const svgContainer = document.createElement('div');
-    svgContainer.classList.add('bank-logo');
-    svgContainer.innerHTML = bankByCard.bank_logo;
-
-    // Clear previous logos if any and append
-    const oldLogo = document.querySelector('.bank-logo');
-    if (oldLogo) oldLogo.remove();
-
-    document.body.appendChild(svgContainer);
+  if (card) {
+    bank = findByCardNumber(card);
+  } else if (iban) {
+    bank = findByIBan(iban);
+  } else if (name) {
+    bank = findByName(name);
   }
+
+  if (!bank) {
+    resultDiv.innerHTML = `<p style="color: red;">No matching bank found.</p>`;
+    return;
+  }
+
+  // Build styled card HTML
+  const cardNoDisplay = card || (iban ? 'N/A' : 'N/A');
+  const bankTitle = bank.bank_title || bank.bank_name || 'Unknown Bank';
+  const logoSvg = bank.bank_logo || '';
+  const color = bank.color || '#444';
+  const lighter = bank.lighter_color || '#eee';
+  const darker = bank.darker_color || '#222';
+
+  resultDiv.innerHTML = `
+    <div style="
+      max-width: 400px;
+      margin: 1rem auto;
+      border-radius: 16px;
+      padding: 2rem;
+      background: linear-gradient(145deg, ${lighter}, ${darker});
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      border: 4px solid ${color};
+    ">
+      <div style="margin-bottom: 1rem;">
+        <div class="icon-holder" style="width: 80px; height: 80px; margin: 0 auto;">
+          ${logoSvg}
+        </div>
+      </div>
+      <h2 style="margin: 0.5rem 0; font-weight: 700;">${bankTitle}</h2>
+      <div style="
+        font-size: 1.4rem;
+        font-weight: 700;
+        background: rgba(255 255 255 / 0.15);
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        letter-spacing: 2px;
+        margin-top: 1rem;
+        user-select: all;
+      ">${cardNoDisplay}</div>
+    </div>
+  `;
 });
