@@ -24,8 +24,6 @@ export const bankLogos = importAll(
   import.meta.glob('../data/images/*.svg', { eager: true, query: '?raw', import: 'default' })
 );
 
-console.log('Loaded logos:', Object.keys(bankLogos));
-
 // Map banks to replace logo path with raw SVG content (inline SVG)
 const mapBanksWithLogos = () =>
   banks.map(bank => ({
