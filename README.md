@@ -1,6 +1,32 @@
 # iranian-bank-list-js
+
 A Javascript library to identify Iranian banks based on card numbers (first 6 digits) and IBANs. It also includes utility functions to validate card numbers and IBANs using standard algorithms.
 
+## Getting Started
+
+To get started with this package, you first need to install it via npm or yarn:
+
+```bash
+npm install iranian-bank-list-js
+```
+
+or
+
+```bash
+yarn add iranian-bank-list-js
+```
+
+Then, you can import and use the methods in your JavaScript or TypeScript project:
+
+```js
+import { getAllBanks, findByCardNumber, validateIbanChecksum } from 'iranian-bank-list-js';
+
+const banks = getAllBanks();
+const bank = findByCardNumber('6037991234567890');
+const isValidIban = validateIbanChecksum('IR820540102680020817909002');
+
+console.log(banks, bank, isValidIban);
+```
 
 ## Methods
 
@@ -214,3 +240,13 @@ import { findByIBan } from './index.js';
 const bank = findByIBan('IR820540102680020817909002');
 console.log(bank);
 ```
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE.md).
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
