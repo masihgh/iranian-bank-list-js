@@ -1,11 +1,66 @@
-<!-- dev/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Bank Utils Example</title>
-  </head>
-  <body>
-    <script type="module" src="./main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Iranian Bank Utils Interactive</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.25rem;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+    .bank-logo {
+      margin-top: 0.5rem;
+      width: 100px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Iranian Bank Utils Interactive Demo</h1>
+
+  <label for="cardNumber">Bank Card Number</label>
+  <input type="text" id="cardNumber" placeholder="e.g. 6273811234567890" />
+
+  <label for="iban">IBAN Number</label>
+  <input type="text" id="iban" placeholder="e.g. IR820540102680020817909002" />
+
+  <label for="bankName">Bank Name</label>
+  <input type="text" id="bankName" placeholder="e.g. melli" />
+
+  <button id="runBtn">Run All Methods</button>
+
+  <div class="result" id="result"></div>
+
+  <script type="module" src="./main.js"></script>
+</body>
 </html>
