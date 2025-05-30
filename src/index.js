@@ -61,3 +61,24 @@ export const getBankByIban = (iban) =>
  * @returns {boolean} True if valid, false otherwise
  */
 export const validateIban = (iban) => !!getBankByIban(iban);
+
+/**
+ * Validate Iranian bank card number using Luhn algorithm
+ * @param {string|number} cardNumber - Full card number to validate
+ * @returns {boolean} True if valid, false otherwise
+ */
+export function validateIranianCard(cardNumber) {
+  const digits = String(cardNumber).replace(/\D/g, '');
+  if (digits.length !== 16) return false; // Typical Iranian card length
+
+  let sum = 0;
+  for (let i = 0; i < 16; i++) {
+    let digit = parseInt(digits.charAt(i), 10);
+    if (i % 2 === 0) {  // even index digits (0-based) are doubled
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+  }
+  return sum % 10 === 0;
+}
