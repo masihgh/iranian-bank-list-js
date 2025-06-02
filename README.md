@@ -2,6 +2,12 @@
 
 A Javascript library to identify Iranian banks based on card numbers (first 6 digits) and IBANs. It also includes utility functions to validate card numbers and IBANs using standard algorithms.
 
+![GitHub Release](https://img.shields.io/github/v/release/masihgh/iranian-bank-list-js)
+![NPM Downloads](https://img.shields.io/npm/d18m/iranian-bank-list?color=red)
+![GitHub License](https://img.shields.io/github/license/masihgh/iranian-bank-list-js)
+![GitHub Repo stars](https://img.shields.io/github/stars/masihgh/iranian-bank-list-js)
+![GitHub forks](https://img.shields.io/github/forks/masihgh/iranian-bank-list-js)
+
 > Note: This project uses part of the publicly available bank dataset from: <https://github.com/masihgh/iranian-bank-list>
 
 ## Getting Started
