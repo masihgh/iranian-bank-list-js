@@ -9,19 +9,19 @@ A Javascript library to identify Iranian banks based on card numbers (first 6 di
 To get started with this package, you first need to install it via npm or yarn:
 
 ```bash
-npm install iranian-bank-list-js
+npm install iranian-bank-list
 ```
 
 or
 
 ```bash
-yarn add iranian-bank-list-js
+yarn add iranian-bank-list
 ```
 
 Then, you can import and use the methods in your JavaScript or TypeScript project:
 
 ```js
-import { getAllBanks, findByCardNumber, validateIbanChecksum } from 'iranian-bank-list-js';
+import { getAllBanks, findByCardNumber, validateIbanChecksum } from 'iranian-bank-list';
 
 const banks = getAllBanks();
 const bank = findByCardNumber('6037991234567890');
@@ -45,7 +45,7 @@ Array<Object>
 **Example:**
 
 ```js
-import { getAllBanks } from 'iranian-bank-list-js';
+import { getAllBanks } from 'iranian-bank-list';
 
 const banks = getAllBanks();
 console.log(banks[0]);
@@ -75,7 +75,7 @@ Finds a bank object matching a given full card number using the bank's regex pat
 **Example:**
 
 ```js
-import { getBankByCardNumber } from 'iranian-bank-list-js';
+import { getBankByCardNumber } from 'iranian-bank-list';
 
 const bank = getBankByCardNumber('6273811234567890');
 if (bank) {
@@ -100,7 +100,7 @@ Finds a bank object matching a given IBAN string using the bank's regex pattern.
 **Example:**
 
 ```js
-import { getBankByIban } from 'iranian-bank-list-js';
+import { getBankByIban } from 'iranian-bank-list';
 
 const bank = getBankByIban('IR820540102680020817909002');
 if (bank) {
@@ -125,7 +125,7 @@ Checks if the IBAN belongs to a known bank (using `getBankByIban`).
 **Example:**
 
 ```js
-import { validateIban } from 'iranian-bank-list-js';
+import { validateIban } from 'iranian-bank-list';
 
 console.log(validateIban('IR820540102680020817909002'));  // true or false
 ```
@@ -147,7 +147,7 @@ Validates an Iranian bank card number using the Luhn algorithm.
 **Example:**
 
 ```js
-import { validateIranianCard } from 'iranian-bank-list-js';
+import { validateIranianCard } from 'iranian-bank-list';
 
 console.log(validateIranianCard('6273811234567890')); // true or false
 ```
@@ -169,7 +169,7 @@ Validates an IBAN string using the international standard mod-97 checksum.
 **Example:**
 
 ```js
-import { validateIbanChecksum } from 'iranian-bank-list-js';
+import { validateIbanChecksum } from 'iranian-bank-list';
 
 console.log(validateIbanChecksum('IR820540102680020817909002')); // true or false
 ```
