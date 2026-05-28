@@ -11,6 +11,7 @@ jobs:
 
     permissions:
       contents: read
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -28,12 +29,5 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Check npm authentication
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish package
+      - name: Publish to npm
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
