@@ -1,6 +1,6 @@
 {
-  "name": "iranian-bank-list",
-  "version": "1.2.0",
+  "name": "@masihgh/iranian-bank-list",
+  "version": "1.2.1",
   "description": "A Javascript library to identify Iranian banks based on card numbers (first 6 digits) and IBANs. It also includes utility functions to validate card numbers and IBANs using standard algorithms.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -36,6 +36,9 @@
     "url": "https://github.com/masihgh/iranian-bank-list-js/issues"
   },
   "homepage": "https://github.com/masihgh/iranian-bank-list-js#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "rollup": "^4.41.1",
     "vite": "^8.0.14"
