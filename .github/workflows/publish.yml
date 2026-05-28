@@ -1,4 +1,3 @@
-```yaml
 name: Publish Package
 
 on:
@@ -35,4 +34,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-```
